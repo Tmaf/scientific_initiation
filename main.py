@@ -29,7 +29,7 @@ database = DataBase()
 SCORING = 'roc_auc'     # 'accuracy'
 POPULATION_SIZE = 10
 GENERATIONS = 20
-MUTATION_TAX = 0.5
+MUTATION_TAX = 0.3
 NUMBER_OF_IMAGES = 20  # -1 for all
 DATABASES = [
     "C:\\Users\\tmaf\\Mega\\dataBase\\FL",
@@ -47,7 +47,7 @@ CLASSIFIERS = {
     # "Neural Net": MLPClassifier(alpha=1),
     # "AdaBoost": AdaBoostClassifier(),
 }
-PROCESS_NUMBERS = 10
+PROCESS_NUMBERS = 2
 DATABASE_NAME = "individuals"
 
 
@@ -135,21 +135,18 @@ def extract_data(individual):
     return individual
 
 
-
 def run():
     pool = Pool(PROCESS_NUMBERS)
     best_results = []
     worst_results = []
     # generate first population
     population = [Individual() for _ in range(POPULATION_SIZE)]
-    for i in population:
-        print(i.genome)
     # for each individual, extract features and evaluate
     for generation in range(GENERATIONS):
         print('\nGeneration {}:'.format(generation))
 
-        # for individual in population:
-        #     extract_data(individual)
+        for i in population:
+            print(i.genome)
 
         population = pool.map(extract_data, population)
 
@@ -164,15 +161,16 @@ def run():
 
         best_results.append(best_individual.score)
         worst_results.append(worst_individual.score)
+
         if generation % 10 == 0 and generation > 0:
             plot_evolution_score(best_results, worst_results, generation, DATABASE_NAME)
         if generation % 5 == 0 and generation > 0:
             plot_generation_score([i.score for i in population], generation, DATABASE_NAME)
-        # generate new population
-        population = [best_individual]
-        while len(population) < POPULATION_SIZE:
-            population.append(deepcopy(best_individual))
-            population[-1].mutate(MUTATION_TAX, best=best_individual, worst=worst_individual)
+
+        for individual in population:
+            if individual != best_individual:
+                individual.mutate(MUTATION_TAX, best=best_individual, worst=worst_individual)
+
         print('BEST:{} \n {} '.format(best_individual, best_individual.genome))
 
 

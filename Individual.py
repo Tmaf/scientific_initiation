@@ -16,12 +16,13 @@ FEATURES['VERTICAL'] = [True, False]
 FEATURES['DIAGONAL'] = [True, False]
 
 FEATURES['ENERGY'] = [True, False]
-FEATURES['ENTROPY'] = [True, False]
 FEATURES['MEAN'] = [True, False]
 FEATURES['MEDIAN'] = [True, False]
-FEATURES['KURTOSIS'] = [True, False]
 FEATURES['VARIANCE'] = [True, False]
 FEATURES['MODE'] = [True, False]
+
+FEATURES['ENTROPY'] = [True, False]
+FEATURES['KURTOSIS'] = [True, False]
 
 
 class Individual(object):
@@ -70,19 +71,25 @@ class Individual(object):
         self.__genome = genome
 
     def mutate(self, tax, best, worst):
+        self.__score = 0
         for feature in self.__genome:
             if feature not in ['COLOR', 'SIGMA1', 'SIGMA2', 'WAVELET_REPEATS', 'WAVELET']:
                 self.genome[feature] = (self.genome[feature]
                                         + (rd.random() * (best.genome[feature] - self.genome[feature]))
                                         - (rd.random() * (worst.genome[feature] - self.genome[feature])))
-
-                if rd.random() > tax:
-                    self.genome[feature] += rd.random() * tax
-                else:
-                    self.genome[feature] -= rd.random() * tax
             else:
                 if rd.random() < tax:
                     self.genome[feature] = rd.choice(FEATURES[feature])
+
+    def random_mutate(self, tax):
+        self.__score = 0
+        for feature in self.__genome:
+            if rd.random() < tax:
+                if feature not in ['COLOR', 'SIGMA1', 'SIGMA2', 'WAVELET_REPEATS', 'WAVELET']:
+                    self.genome[feature] = rd.choice(FEATURES[feature])
+                else:
+                    self.genome[feature] = rd.random()
+
 
     def to_json(self):
         genome = self.__genome
