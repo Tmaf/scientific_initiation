@@ -46,8 +46,8 @@ class Individual(object):
             self.__genome['MEAN'] = rd.random()
             self.__genome['MEDIAN'] = rd.random()
             self.__genome['VARIANCE'] = rd.random()
+            # self.__genome['MODE'] = rd.random()
 
-            # self.__genome['MODE'] = rd.choice(FEATURES['MODE'])
             # self.__genome['ENTROPY'] = rd.choice(FEATURES['ENTROPY'])
             # self.__genome['KURTOSIS'] = rd.choice(FEATURES['KURTOSIS'])
         else:
@@ -77,9 +77,17 @@ class Individual(object):
                 self.genome[feature] = (self.genome[feature]
                                         + (rd.random() * (best.genome[feature] - self.genome[feature]))
                                         - (rd.random() * (worst.genome[feature] - self.genome[feature])))
+                if rd.random() < tax:
+                    self.genome[feature] += rd.random()
+                if rd.random() < tax:
+                    self.genome[feature] -= rd.random()
+
             else:
                 if rd.random() < tax:
-                    self.genome[feature] = rd.choice(FEATURES[feature])
+                    if rd.random() < tax:
+                        self.genome[feature] = rd.choice(FEATURES[feature])
+                    else:
+                        self.genome[feature] = best.genome[feature]
 
     def random_mutate(self, tax):
         self.__score = 0
@@ -90,14 +98,16 @@ class Individual(object):
                 else:
                     self.genome[feature] = rd.random()
 
-
-    def to_json(self):
+    def to_json(self, additional_info=()):
         genome = self.__genome
         score = self.__score
-        return{
+        json = {
             'genome': genome,
             'score': score
         }
+        for i in additional_info:
+            json[i] = additional_info[i]
+        return json
 
     def __gt__(self, other):
         return self.score > other.score
