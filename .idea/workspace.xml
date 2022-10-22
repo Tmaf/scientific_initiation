@@ -4,17 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa158bc8-66d0-41fb-955f-66e49f5b3009" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/genetic.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/genetic.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/FileLoader.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/FileLoader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/GraphPlot.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/GraphPlot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/FeatureExtraction/HOG.py" beforeDir="false" afterPath="$PROJECT_DIR$/features/FeatureExtraction/HOG.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/FeatureExtraction/ICA.py" beforeDir="false" afterPath="$PROJECT_DIR$/features/FeatureExtraction/ICA.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/FeatureExtraction/LBP.py" beforeDir="false" afterPath="$PROJECT_DIR$/features/FeatureExtraction/LBP.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    <list default="true" id="fa158bc8-66d0-41fb-955f-66e49f5b3009" name="Default Changelist" comment="code adjusts">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +21,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Tarcísio M. Almeida &lt;tarcisiomaf@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
@@ -49,6 +46,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
@@ -119,8 +117,23 @@
       <workItem from="1619656689281" duration="638000" />
       <workItem from="1666267522114" duration="2035000" />
       <workItem from="1666375067937" duration="2594000" />
-      <workItem from="1666470042665" duration="5046000" />
+      <workItem from="1666470042665" duration="5167000" />
     </task>
+    <task id="LOCAL-00001" summary="code adjusts">
+      <created>1666477532271</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1666477532271</updated>
+    </task>
+    <task id="LOCAL-00002" summary="code adjusts">
+      <created>1666477551010</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1666477551010</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -136,5 +149,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="code adjusts" />
+    <option name="LAST_COMMIT_MESSAGE" value="code adjusts" />
   </component>
 </project>
