@@ -9,7 +9,7 @@ def plot_evolution_score(best_score, worst_score, generation, data_base):
     plt.xlabel("Generations")
     plt.ylabel("Score")
     plt.title("Evolution until generation {}".format(generation))
-    plt.savefig('images/evolution/{}_evolution_{}.png'.format(data_base, generation))
+    plt.savefig('plots/{}_evolution_{}.png'.format(data_base, generation))
 
 
 def plot_generation_score(array, generation, data_base):
