@@ -1,22 +1,20 @@
 # import  cv2
 import numpy as np
-
 from sklearn import model_selection
-
-from sklearn.ensemble import RandomForestClassifier
+# from sklearn.ensemble import RandomForestClassifier
 # from sklearn.ensemble import AdaBoostClassifier
 # from sklearn.neighbors import KNeighborsClassifier
 # from DataAccess.MongoAccess import DataBase
 # from sklearn.gaussian_process import GaussianProcessClassifier
 # from sklearn.gaussian_process.kernels import RBF
 # from sklearn.neural_network import MLPClassifier
-# from sklearn.svm import SVC
+from sklearn.svm import SVC
 # from sklearn.tree import DecisionTreeClassifier
 from Individual import Individual
 from DataAccess.GraphPlot import plot_generation_score
 from DataAccess.GraphPlot import plot_evolution_score
 from DataAccess.FileLoader import Files
-from DataAccess.MongoAccess import DataBase
+# from DataAccess.MongoAccess import DataBase
 import features as ftrs
 from sklearn.model_selection import StratifiedKFold
 from multiprocessing import Pool
@@ -24,25 +22,25 @@ from multiprocessing import Pool
 SEED_K_FOLD = 231234
 K_SPLITS = 4
 kf = StratifiedKFold(n_splits=K_SPLITS, shuffle=True, random_state=SEED_K_FOLD)
-database = DataBase()
-SCORING = 'roc_auc'     # 'accuracy'
+# database = DataBase()
+SCORING = 'roc_auc'  # 'accuracy'
 POPULATION_SIZE = 10
-GENERATIONS = 20
+NUMBER_OF_GENERATIONS = 30
 MUTATION_TAX = 0.2
-NUMBER_OF_IMAGES = 20  # -1 for all
+NUMBER_OF_IMAGES = 50  # -1 for all
 DATABASES = [
-    "C:\\Users\\tmaf\\Mega\\dataBase\\FL",
-    # "C:\\Users\\tmaf\\Mega\\dataBase\\CLL",
-    "C:\\Users\\tmaf\\Mega\\dataBase\\MCL"
+    "data/FL",
+    # "data/CLL",
+    "data/MCL"
 ]
 CLASSIFIERS = {
     # "Nearest Neighbors": KNeighborsClassifier(5),
     # "Linear SVM": SVC(kernel="linear", C=0.025),
-    # "Sigmoid SVM": SVC(kernel="sigmoid", C=0.025),
+    "Sigmoid SVM": SVC(kernel="sigmoid", C=0.025),
     # "RBF SVM": SVC(kernel="rbf", C=0.025),
     # "Gaussian Process": GaussianProcessClassifier(1.0 * RBF(1.0)),
     # "Decision Tree": DecisionTreeClassifier(max_depth=6),
-    "Random Forest":  RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1),
+    # "Random Forest": RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1),
     # "Neural Net": MLPClassifier(alpha=1),
     # "AdaBoost": AdaBoostClassifier(),
 }
@@ -54,8 +52,6 @@ def score(x, y):
     scores = np.array([])
     for model in CLASSIFIERS:
         results = model_selection.cross_val_score(CLASSIFIERS[model], x, y, cv=kf, scoring=SCORING)
-        # print('-----' + model)
-        # print("Accuracy: " + str(results.mean()) + " (" + str(results.std()) + ")")
         scores = np.append(scores, [results.mean()])
     return scores.mean()
 
@@ -135,43 +131,40 @@ def extract_data(individual):
     return individual
 
 
+def print_generation_info(generation, best_individual, worst_individual):
+    print(f'\nGeneration {generation}:')
+    print('\tWORST: {}'.format(worst_individual.score))
+    print('\tBEST: {}'.format(best_individual.score))
+    print('\tGENOME: {} '.format(best_individual.genome))
+
+
+def create_population():
+    return [Individual() for _ in range(POPULATION_SIZE)]
+
+def mutate_population(best_individual, population, worst_individual):
+    for individual in population:
+        if individual != best_individual:
+            individual.mutate(MUTATION_TAX, best=best_individual, worst=worst_individual)
+
+
 def run():
     pool = Pool(PROCESS_NUMBERS)
     best_results = []
     worst_results = []
     # generate first population
-    population = [Individual() for _ in range(POPULATION_SIZE)]
+    population = create_population()
     # for each individual, extract features and evaluate
-    for generation in range(GENERATIONS):
-        print('\nGeneration {}:'.format(generation))
-
-        for i in population:
-            print(i.genome)
-
+    for generation in range(0, NUMBER_OF_GENERATIONS + 1):
+        # extract data from gene in images
         population = pool.map(extract_data, population)
-
-        # select the bests
-        database.save_many(DATABASE_NAME, [ind.to_json({'generation': generation}) for ind in population
-                                           if database.find_one(DATABASE_NAME, {'genome': ind.genome}) is None])
+        # select the best and the worst
         best_individual = max(population)
         worst_individual = min(population)
-
-        print('BEST: {}'.format(best_individual.score))
-        print('WORST: {}'.format(worst_individual.score))
-        print('BEST:{} \n {} '.format(best_individual, best_individual.genome))
-
         best_results.append(best_individual.score)
         worst_results.append(worst_individual.score)
-
-        if generation % 10 == 0 and generation > 0:
-            plot_evolution_score(best_results, worst_results, generation, DATABASE_NAME)
-        if generation % 5 == 0 and generation > 0:
-            plot_generation_score([i.score for i in population], generation, DATABASE_NAME)
-
-        for individual in population:
-            if individual != best_individual:
-                individual.mutate(MUTATION_TAX, best=best_individual, worst=worst_individual)
-
+        mutate_population(best_individual, population, worst_individual)
+        print_generation_info(generation, best_individual, worst_individual)
+    plot_evolution_score(best_results, worst_results, NUMBER_OF_GENERATIONS, DATABASE_NAME)
 
 if __name__ == '__main__':
     run()

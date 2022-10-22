@@ -25,5 +25,5 @@ class Files:
                 if class_limit != -1 and count >= class_limit:
                     break
                 count += 1
-                yield (image, cv2.imread(image), cls)
+                yield image, cv2.imread(image), cls
             cls += 1
