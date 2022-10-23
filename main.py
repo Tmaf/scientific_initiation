@@ -5,13 +5,11 @@ import features
 from pathos.multiprocessing import ProcessingPool as Pool
 import numpy as np
 from DataAccess.GraphPlot import plot_evolution_score, print_generation_info
-from DataAccess.FileLoader import Files
+from DataAccess.ImageLoader import ImageLoader
 from sklearn.model_selection import StratifiedKFold
 
 # from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import AdaBoostClassifier
-
-
 # from sklearn.neighbors import KNeighborsClassifier
 # from sklearn.gaussian_process import GaussianProcessClassifier
 # from sklearn.gaussian_process.kernels import RBF
@@ -37,11 +35,11 @@ def mutate_population(
 
 def make_extract_data(databases, images_number, score_calculator: ScoreCalculator):
     def extract_data(individual: Individual):
-        images = Files(databases)
+        image_loader = ImageLoader(databases)
         x = []
         y = []
 
-        for name, image, cls in images.get_image(class_limit=images_number):
+        for name, image, cls in image_loader.get_image(class_limit=images_number):
             image_features = np.array([])
             component = features.channel(image, individual.genome['COLOR'])
 
@@ -158,7 +156,7 @@ if __name__ == '__main__':
     NUMBER_OF_IMAGES = 50
     PLOT_NAME = "individuals"
     SEED_K_FOLD = 123456
-    K_SPLITS = 4
+    K_SPLITS = 10
     SCORING = 'roc_auc'  # 'accuracy'
     DATABASES = [
         "data/FL",

@@ -2,7 +2,7 @@ import os
 import cv2
 
 
-class Files:
+class ImageLoader:
 
     def __init__(self, directories_path, type_file='.tif'):
         self.databases = dict()
