@@ -2,14 +2,15 @@ from typing import List
 from Individual import Individual
 from ScoreCalculator import ScoreCalculator
 import features
+from data_access import ImageLoader, Logger
 from pathos.multiprocessing import ProcessingPool as Pool
 import numpy as np
-from DataAccess.GraphPlot import plot_evolution_score, print_generation_info
-from DataAccess.ImageLoader import ImageLoader
 from sklearn.model_selection import StratifiedKFold
 
-# from sklearn.ensemble import RandomForestClassifier
-from sklearn.ensemble import AdaBoostClassifier
+from sklearn.ensemble import RandomForestClassifier
+
+
+# from sklearn.ensemble import AdaBoostClassifier
 # from sklearn.neighbors import KNeighborsClassifier
 # from sklearn.gaussian_process import GaussianProcessClassifier
 # from sklearn.gaussian_process.kernels import RBF
@@ -33,7 +34,7 @@ def mutate_population(
             individual.mutate(mutation_tax, best=best_individual, worst=worst_individual)
 
 
-def make_extract_data(databases, images_number, score_calculator: ScoreCalculator):
+def make_extract_data(databases: List[str], images_number: int, score_calculator: ScoreCalculator):
     def extract_data(individual: Individual):
         image_loader = ImageLoader(databases)
         x = []
@@ -118,50 +119,48 @@ class Main:
                  generations_number: int,
                  images_number: int,
                  mutation_tax: float,
-                 plot_name: str,
                  databases: List[str],
-                 score_calculator: ScoreCalculator):
-        self.databases = databases
-        self.process_numbers = process_numbers
+                 score_calculator: ScoreCalculator,
+                 logger: Logger):
+
         self.population_size = population_size
-        self.images_number = images_number
         self.mutation_tax = mutation_tax
         self.generations_number = generations_number
-        self.plot_name = plot_name
-        self.score_calculator = score_calculator
+
+        self.logger = logger
+        self.pool = Pool(process_numbers)
+        self.calculate_score = make_extract_data(databases, images_number, score_calculator)
 
     def run(self):
-        pool = Pool(self.process_numbers)
-        extract_data = make_extract_data(self.databases, self.images_number, self.score_calculator)
+        logger = self.logger
+        calculate_score = self.calculate_score
         population = create_population(self.population_size)
         best_results: List = []
-        worst_results: List = []
 
         for generation in range(self.generations_number):
-            population = pool.map(extract_data, population)
+            population = self.pool.map(calculate_score, population)
             best_individual = max(population)
             worst_individual = min(population)
-            print_generation_info(generation, best_individual, worst_individual)
             best_results.append(best_individual.score)
-            worst_results.append(worst_individual.score)
+            logger.log_generation(generation, best_individual, worst_individual, population, best_results)
             mutate_population(population, best_individual, worst_individual, self.mutation_tax)
-        plot_evolution_score(best_results, worst_results, self.generations_number, self.plot_name)
+        logger.plot_evolution_score(best_results, self.generations_number)
 
 
 if __name__ == '__main__':
     PROCESS_NUMBERS = 12
-    POPULATION_SIZE = 30
-    NUMBER_OF_GENERATIONS = 50
+    POPULATION_SIZE = 10
+    NUMBER_OF_GENERATIONS = 20
     MUTATION_TAX = 0.2
-    NUMBER_OF_IMAGES = 50
-    PLOT_NAME = "individuals"
+    NUMBER_OF_IMAGES = 20
+    PLOT_NAME = "FL_MCL_RANDOM_FOREST"
     SEED_K_FOLD = 123456
-    K_SPLITS = 10
+    K_SPLITS = 4
     SCORING = 'roc_auc'  # 'accuracy'
     DATABASES = [
         "data/FL",
-        # "data/CLL",
-        "data/MCL"
+        "data/CLL",
+        # "data/MCL"
     ]
     CLASSIFIERS = {
         # "Nearest Neighbors": lambda:  KNeighborsClassifier(5),
@@ -170,9 +169,13 @@ if __name__ == '__main__':
         # "RBF SVM": lambda: SVC(kernel="rbf", C=0.025),
         # "Gaussian Process": lambda:  GaussianProcessClassifier(1.0 * RBF(1.0)),
         # "Decision Tree": lambda:  DecisionTreeClassifier(max_depth=6),
-        # "Random Forest": lambda: RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1),
+        "Random Forest": lambda: RandomForestClassifier(max_depth=5,
+                                                        n_estimators=10,
+                                                        max_features=1,
+                                                        random_state=SEED_K_FOLD
+                                                        ),
         # "Neural Net": lambda: MLPClassifier(alpha=1),
-        "AdaBoost": lambda: AdaBoostClassifier(),
+        # "AdaBoost": lambda: AdaBoostClassifier(),
     }
 
     stratified_k_fold = StratifiedKFold(n_splits=K_SPLITS,
@@ -189,7 +192,13 @@ if __name__ == '__main__':
                 generations_number=NUMBER_OF_GENERATIONS,
                 images_number=NUMBER_OF_IMAGES,
                 mutation_tax=MUTATION_TAX,
-                plot_name=PLOT_NAME,
                 databases=DATABASES,
-                score_calculator=scoreCalculator)
+                score_calculator=scoreCalculator,
+                logger=Logger(title=PLOT_NAME))
     main.run()
+
+# TODO:
+# 1. Mover make_extract_data to ScoreCalculator
+# 2. Extrair ImageLoader do make_extract_data
+# 3. Pensar em uma implementação otimizada do ImageLoader
+# 4. Ajustar Individual pra permitir o jaya em mais genes

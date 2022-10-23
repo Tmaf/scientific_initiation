@@ -4,10 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa158bc8-66d0-41fb-955f-66e49f5b3009" name="Default Changelist" comment="create Main class">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="fa158bc8-66d0-41fb-955f-66e49f5b3009" name="Default Changelist" comment="adjust image style">
+      <change afterPath="$PROJECT_DIR$/data_access/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_access/logger.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/FileLoader.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/ImageLoader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccess/GraphPlot.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccess/ImageLoader.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_access/image_loader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccess/MongoAccess.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -120,7 +124,7 @@
       <workItem from="1619656689281" duration="638000" />
       <workItem from="1666267522114" duration="2035000" />
       <workItem from="1666375067937" duration="2594000" />
-      <workItem from="1666470042665" duration="19782000" />
+      <workItem from="1666470042665" duration="25500000" />
     </task>
     <task id="LOCAL-00001" summary="code adjusts">
       <created>1666477532271</created>
@@ -164,7 +168,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666502850970</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="adjust image style">
+      <created>1666533178956</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1666533178956</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -197,6 +208,7 @@
     <MESSAGE value="add data and plot in gitignore" />
     <MESSAGE value="changes in code" />
     <MESSAGE value="create Main class" />
-    <option name="LAST_COMMIT_MESSAGE" value="create Main class" />
+    <MESSAGE value="adjust image style" />
+    <option name="LAST_COMMIT_MESSAGE" value="adjust image style" />
   </component>
 </project>
