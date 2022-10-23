@@ -1,14 +1,16 @@
 from typing import List
 from Individual import Individual
+from ScoreCalculator import ScoreCalculator
 import features
-from multiprocessing import Pool
+from pathos.multiprocessing import ProcessingPool as Pool
 import numpy as np
-from DataAccess.GraphPlot import plot_evolution_score
+from DataAccess.GraphPlot import plot_evolution_score, print_generation_info
 from DataAccess.FileLoader import Files
-from sklearn import model_selection
 from sklearn.model_selection import StratifiedKFold
+
 # from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import AdaBoostClassifier
+
 
 # from sklearn.neighbors import KNeighborsClassifier
 # from sklearn.gaussian_process import GaussianProcessClassifier
@@ -16,41 +18,6 @@ from sklearn.ensemble import AdaBoostClassifier
 # from sklearn.neural_network import MLPClassifier
 # from sklearn.svm import SVC
 # from sklearn.tree import DecisionTreeClassifier
-
-SEED_K_FOLD = 231234
-K_SPLITS = 4
-SCORING = 'roc_auc'  # 'accuracy'
-
-CLASSIFIERS = {
-    # "Nearest Neighbors": lambda _:  KNeighborsClassifier(5),
-    # "Linear SVM": lambda _: SVC(kernel="linear", C=0.025),
-    # "Sigmoid SVM": lambda _: SVC(kernel="sigmoid", C=0.025),
-    # "RBF SVM": lambda _: SVC(kernel="rbf", C=0.025),
-    # "Gaussian Process": lambda _:  GaussianProcessClassifier(1.0 * RBF(1.0)),
-    # "Decision Tree": lambda _:  DecisionTreeClassifier(max_depth=6),
-    # "Random Forest": lambda _: RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1),
-    # "Neural Net": lambda _: MLPClassifier(alpha=1),
-    "AdaBoost": lambda _: AdaBoostClassifier(),
-}
-
-
-def get_score(x, y):
-    scores = np.array([])
-    for model in CLASSIFIERS:
-        k_fold = StratifiedKFold(n_splits=K_SPLITS, shuffle=True, random_state=SEED_K_FOLD)
-        classifier = CLASSIFIERS[model]()
-        results = model_selection.cross_val_score(classifier, x, y, cv=k_fold, scoring=SCORING)
-        scores = np.append(scores, [results.mean()])
-    return scores.mean()
-
-
-def print_generation_info(generation: int, best_individual: Individual, worst_individual: Individual):
-    print(f'''
-    Generation {generation}:
-        WORST:  {worst_individual.score}
-        BEST:   {best_individual.score}
-        GENOME: {best_individual.genome}
-    ''')
 
 
 def create_population(size: int) -> List[Individual]:
@@ -68,29 +35,13 @@ def mutate_population(
             individual.mutate(mutation_tax, best=best_individual, worst=worst_individual)
 
 
-class Main:
-    def __init__(self,
-                 process_numbers: int,
-                 population_size: int,
-                 generations_number: int,
-                 images_number: int,
-                 mutation_tax: float,
-                 plot_name: str,
-                 databases):
-        self.databases = databases
-        self.process_numbers = process_numbers
-        self.population_size = population_size
-        self.images_number = images_number
-        self.mutation_tax = mutation_tax
-        self.generations_number = generations_number
-        self.plot_name = plot_name
-
-    def extract_data(self, individual: Individual):
-        images = Files(self.databases)
+def make_extract_data(databases, images_number, score_calculator: ScoreCalculator):
+    def extract_data(individual: Individual):
+        images = Files(databases)
         x = []
         y = []
 
-        for name, image, cls in images.get_image(class_limit=self.images_number):
+        for name, image, cls in images.get_image(class_limit=images_number):
             image_features = np.array([])
             component = features.channel(image, individual.genome['COLOR'])
 
@@ -153,40 +104,87 @@ class Main:
             y.append(cls)
 
         if np.shape(x)[1] != 0:
-            individual.score = get_score(np.array(x), np.array(y))
+            individual.score = score_calculator.get_score(np.array(x), np.array(y))
         else:
             individual.score = 0
 
         return individual
 
+    return extract_data
+
+
+class Main:
+    def __init__(self,
+                 process_numbers: int,
+                 population_size: int,
+                 generations_number: int,
+                 images_number: int,
+                 mutation_tax: float,
+                 plot_name: str,
+                 databases: List[str],
+                 score_calculator: ScoreCalculator):
+        self.databases = databases
+        self.process_numbers = process_numbers
+        self.population_size = population_size
+        self.images_number = images_number
+        self.mutation_tax = mutation_tax
+        self.generations_number = generations_number
+        self.plot_name = plot_name
+        self.score_calculator = score_calculator
+
     def run(self):
         pool = Pool(self.process_numbers)
+        extract_data = make_extract_data(self.databases, self.images_number, self.score_calculator)
+        population = create_population(self.population_size)
         best_results: List = []
         worst_results: List = []
-        population = create_population(self.population_size)
-        for generation in range(self.generations_number + 1):
-            population = pool.map(self.extract_data, population)
+
+        for generation in range(self.generations_number):
+            population = pool.map(extract_data, population)
             best_individual = max(population)
             worst_individual = min(population)
             print_generation_info(generation, best_individual, worst_individual)
             best_results.append(best_individual.score)
             worst_results.append(worst_individual.score)
             mutate_population(population, best_individual, worst_individual, self.mutation_tax)
-        plot_evolution_score(best_results, worst_results, self.generations_number + 1, self.plot_name)
+        plot_evolution_score(best_results, worst_results, self.generations_number, self.plot_name)
 
 
 if __name__ == '__main__':
-    PROCESS_NUMBERS = 8
-    POPULATION_SIZE = 10
-    NUMBER_OF_GENERATIONS = 10
+    PROCESS_NUMBERS = 12
+    POPULATION_SIZE = 30
+    NUMBER_OF_GENERATIONS = 50
     MUTATION_TAX = 0.2
     NUMBER_OF_IMAGES = 50
     PLOT_NAME = "individuals"
+    SEED_K_FOLD = 123456
+    K_SPLITS = 4
+    SCORING = 'roc_auc'  # 'accuracy'
     DATABASES = [
         "data/FL",
         # "data/CLL",
         "data/MCL"
     ]
+    CLASSIFIERS = {
+        # "Nearest Neighbors": lambda:  KNeighborsClassifier(5),
+        # "Linear SVM": lambda: SVC(kernel="linear", C=0.025),
+        # "Sigmoid SVM": lambda: SVC(kernel="sigmoid", C=0.025),
+        # "RBF SVM": lambda: SVC(kernel="rbf", C=0.025),
+        # "Gaussian Process": lambda:  GaussianProcessClassifier(1.0 * RBF(1.0)),
+        # "Decision Tree": lambda:  DecisionTreeClassifier(max_depth=6),
+        # "Random Forest": lambda: RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1),
+        # "Neural Net": lambda: MLPClassifier(alpha=1),
+        "AdaBoost": lambda: AdaBoostClassifier(),
+    }
+
+    stratified_k_fold = StratifiedKFold(n_splits=K_SPLITS,
+                                        shuffle=True,
+                                        random_state=SEED_K_FOLD
+                                        )
+
+    scoreCalculator = ScoreCalculator(cross_validation_strategy=stratified_k_fold,
+                                      scoring=SCORING,
+                                      classifiers=CLASSIFIERS)
 
     main = Main(process_numbers=PROCESS_NUMBERS,
                 population_size=POPULATION_SIZE,
@@ -194,5 +192,6 @@ if __name__ == '__main__':
                 images_number=NUMBER_OF_IMAGES,
                 mutation_tax=MUTATION_TAX,
                 plot_name=PLOT_NAME,
-                databases=DATABASES)
+                databases=DATABASES,
+                score_calculator=scoreCalculator)
     main.run()
