@@ -19,7 +19,7 @@ class Logger:
         plt.xscale('linear')
         plt.grid(True)
         plt.yticks(np.arange(min(best_score) - 0.5, 1.05, .01))
-        plt.xticks(np.arange(1, len(best_score)+1, 1))
+        plt.xticks(np.arange(0, len(best_score), 1))
         plt.plot(best_score, 'blue', label='Best Scores')
         # plt.plot(worst_score, 'red', label='Worst Scores')
         plt.legend()

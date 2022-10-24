@@ -4,10 +4,11 @@ import cv2
 
 class ImageLoader:
 
-    def __init__(self, directories_path, type_file='.tif'):
+    def __init__(self, directories_path, images_number, type_file='.tif'):
         self.databases = dict()
         self.path = directories_path
         self.type = type_file
+        self.images_number = images_number
         self.__get_databases()
 
     def __get_databases(self):
@@ -17,12 +18,12 @@ class ImageLoader:
                 if file.endswith(self.type):
                     self.databases[directory].append(str(os.path.join(directory, file)))
 
-    def get_image(self, class_limit=-1):
+    def get_next(self):
         cls = 0
         for base in self.databases:
             count = 0
             for image in self.databases[base]:
-                if class_limit != -1 and count >= class_limit:
+                if self.images_number != -1 and count >= self.images_number:
                     break
                 count += 1
                 yield image, cv2.imread(image), cls
