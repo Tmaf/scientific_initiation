@@ -4,7 +4,7 @@ import numpy as np
 from sklearn import model_selection
 
 import features
-from Individual import Individual
+from individual import Individual
 
 
 class ScoreCalculator:

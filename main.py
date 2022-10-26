@@ -1,5 +1,5 @@
 from Jaya import Jaya
-from ScoreCalculator import ScoreCalculator
+from score_calculator import ScoreCalculator
 from data_access import Logger, ImageLoader
 from pathos.multiprocessing import ProcessingPool as Pool
 from sklearn.model_selection import StratifiedKFold
@@ -71,6 +71,6 @@ if __name__ == '__main__':
     jaya.execute()
 
 # TODO:
-# 5. Create a Classifiers abstraction
-# 3. Pensar em uma implementação otimizada do ImageLoader
-# 4. Ajustar Individual pra permitir o jaya em mais genes
+# 1. Create a Classifiers abstraction
+# 2. Pensar em uma implementação otimizada do ImageLoader
+# 3. Ajustar Individual pra permitir o jaya em mais genes

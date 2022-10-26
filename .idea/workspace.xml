@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa158bc8-66d0-41fb-955f-66e49f5b3009" name="Default Changelist" comment="create logger and data_access package">
-      <change afterPath="$PROJECT_DIR$/Jaya.py" afterDir="false" />
+    <list default="true" id="fa158bc8-66d0-41fb-955f-66e49f5b3009" name="Default Changelist" comment="create Jaya and responsibility change in Score Calculator">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ScoreCalculator.py" beforeDir="false" afterPath="$PROJECT_DIR$/ScoreCalculator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_access/image_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_access/image_loader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Individual.py" beforeDir="false" afterPath="$PROJECT_DIR$/individual.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jaya.py" beforeDir="false" afterPath="$PROJECT_DIR$/Jaya.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ScoreCalculator.py" beforeDir="false" afterPath="$PROJECT_DIR$/score_calculator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data_access/logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_access/logger.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -126,7 +126,8 @@
       <workItem from="1666267522114" duration="2035000" />
       <workItem from="1666375067937" duration="2594000" />
       <workItem from="1666470042665" duration="26960000" />
-      <workItem from="1666620755618" duration="2166000" />
+      <workItem from="1666620755618" duration="5864000" />
+      <workItem from="1666803790259" duration="1822000" />
     </task>
     <task id="LOCAL-00001" summary="code adjusts">
       <created>1666477532271</created>
@@ -184,7 +185,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666541154855</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="create Jaya and responsibility change in Score Calculator">
+      <created>1666623008161</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1666623008161</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -219,6 +227,7 @@
     <MESSAGE value="create Main class" />
     <MESSAGE value="adjust image style" />
     <MESSAGE value="create logger and data_access package" />
-    <option name="LAST_COMMIT_MESSAGE" value="create logger and data_access package" />
+    <MESSAGE value="create Jaya and responsibility change in Score Calculator" />
+    <option name="LAST_COMMIT_MESSAGE" value="create Jaya and responsibility change in Score Calculator" />
   </component>
 </project>

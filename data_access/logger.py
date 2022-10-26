@@ -1,6 +1,6 @@
 from matplotlib import pyplot as plt
 import numpy as np
-from Individual import Individual
+from individual import Individual
 
 
 class Logger:

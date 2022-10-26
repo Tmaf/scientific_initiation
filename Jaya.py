@@ -1,7 +1,7 @@
 from typing import List
 
-from Individual import Individual
-from ScoreCalculator import ScoreCalculator
+from individual import Individual
+from score_calculator import ScoreCalculator
 from data_access import Logger
 
 
