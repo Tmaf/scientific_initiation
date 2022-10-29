@@ -56,11 +56,10 @@ class Individual(object):
         self.__score = 0
         for feature in self.__genome:
             if feature not in ['COLOR', 'WAVELET']:
+                distance_from_worst = rd.random() * (worst.genome[feature] - self.genome[feature])
+                distance_from_best = rd.random() * (best.genome[feature] - self.genome[feature])
 
-                worst_variation = rd.random() * (worst.genome[feature] - self.genome[feature])
-                best_variation = rd.random() * (best.genome[feature] - self.genome[feature])
-
-                new_value = self.genome[feature] + best_variation - worst_variation
+                new_value = self.genome[feature] + distance_from_best - distance_from_worst
                 # normalize value to interval of 0 and 1
                 self.genome[feature] = max(min(new_value, 1), 0)
 

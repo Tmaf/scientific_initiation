@@ -14,7 +14,6 @@ from sklearn.ensemble import RandomForestClassifier
 # from sklearn.svm import SVC
 # from sklearn.tree import DecisionTreeClassifier
 
-
 if __name__ == '__main__':
     PROCESS_NUMBERS = 12
     POPULATION_SIZE = 10
@@ -32,14 +31,14 @@ if __name__ == '__main__':
     ]
     CLASSIFIERS = {
         # "Nearest Neighbors": lambda:  KNeighborsClassifier(5),
-        # "Linear SVM": lambda: SVC(kernel="linear", C=0.025),
-        # "Sigmoid SVM": lambda: SVC(kernel="sigmoid", C=0.025),
-        # "RBF SVM": lambda: SVC(kernel="rbf", C=0.025),
-        # "Gaussian Process": lambda:  GaussianProcessClassifier(1.0 * RBF(1.0)),
-        # "Decision Tree": lambda:  DecisionTreeClassifier(max_depth=6),
+        # "Linear SVM": lambda: SVC(kernel="linear", C=0.025, random_state=SEED_K_FOLD),
+        # "Sigmoid SVM": lambda: SVC(kernel="sigmoid", C=0.025, random_state=SEED_K_FOLD),
+        # "RBF SVM": lambda: SVC(kernel="rbf", C=0.025, random_state=SEED_K_FOLD),
+        # "Gaussian Process": lambda:  GaussianProcessClassifier(1.0 * RBF(1.0), random_state=SEED_K_FOLD),
+        # "Decision Tree": lambda: DecisionTreeClassifier(random_state=SEED_K_FOLD),
         "Random Forest": lambda: RandomForestClassifier(random_state=SEED_K_FOLD),
-        # "Neural Net": lambda: MLPClassifier(alpha=1),
-        # "AdaBoost": lambda: AdaBoostClassifier(),
+        # "Neural Net": lambda: MLPClassifier(alpha=1, random_state=SEED_K_FOLD),
+        # "AdaBoost": lambda: AdaBoostClassifier(random_state=SEED_K_FOLD),
     }
 
     logger = Logger(title=PLOT_NAME)
