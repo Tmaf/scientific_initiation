@@ -1,7 +1,7 @@
-from Jaya import Jaya
+from jaya import Jaya
 from score_calculator import ScoreCalculator
 from data_access import Logger, ImageLoader
-from pathos.multiprocessing import ProcessingPool as Pool
+import pathos.multiprocessing
 from sklearn.model_selection import StratifiedKFold
 
 from sklearn.ensemble import RandomForestClassifier
@@ -20,10 +20,10 @@ if __name__ == '__main__':
     POPULATION_SIZE = 10
     NUMBER_OF_GENERATIONS = 20
     MUTATION_TAX = 0.2
-    NUMBER_OF_IMAGES = 20
-    PLOT_NAME = "FL_MCL_RANDOM_FOREST"
+    NUMBER_OF_IMAGES = 60
+    PLOT_NAME = "FL_CLL_RANDOM_FOREST"
     SEED_K_FOLD = 123456
-    K_SPLITS = 4
+    K_SPLITS = 10
     SCORING = 'roc_auc'  # 'accuracy'
     DATABASES = [
         "data/FL",
@@ -37,17 +37,13 @@ if __name__ == '__main__':
         # "RBF SVM": lambda: SVC(kernel="rbf", C=0.025),
         # "Gaussian Process": lambda:  GaussianProcessClassifier(1.0 * RBF(1.0)),
         # "Decision Tree": lambda:  DecisionTreeClassifier(max_depth=6),
-        "Random Forest": lambda: RandomForestClassifier(max_depth=5,
-                                                        n_estimators=10,
-                                                        max_features=1,
-                                                        random_state=SEED_K_FOLD
-                                                        ),
+        "Random Forest": lambda: RandomForestClassifier(random_state=SEED_K_FOLD),
         # "Neural Net": lambda: MLPClassifier(alpha=1),
         # "AdaBoost": lambda: AdaBoostClassifier(),
     }
 
     logger = Logger(title=PLOT_NAME)
-    poolMapper = Pool(PROCESS_NUMBERS)
+    poolMapper = pathos.multiprocessing.ProcessingPool(PROCESS_NUMBERS)
     image_loader = ImageLoader(directories_path=DATABASES,
                                images_number=NUMBER_OF_IMAGES
                                )
@@ -69,7 +65,3 @@ if __name__ == '__main__':
                 )
 
     jaya.execute()
-
-# TODO:
-# 1. Create a Classifiers abstraction
-# 2. Ajustar Individual pra permitir o jaya em mais genes

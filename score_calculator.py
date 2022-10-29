@@ -1,10 +1,18 @@
-from typing import List
+import math
 
 import numpy as np
 from sklearn import model_selection
 
 import features
 from individual import Individual
+
+
+def map_wavelet_repeats(value: float):
+    return math.floor(value * 30)+1  # 1, 1, 2, 3, 4, ..., 30
+
+
+def map_sigma(value: float):
+    return math.floor(value * 16) * 2 + 1  # 1, 3, 5,...,31
 
 
 class ScoreCalculator:
@@ -18,9 +26,13 @@ class ScoreCalculator:
         scores = np.array([])
         for model in self.classifiers:
             classifier = self.classifiers[model]()
-            results = model_selection.cross_val_score(classifier, x, y,
+            results = model_selection.cross_val_score(estimator=classifier,
+                                                      X=x,
+                                                      y=y,
                                                       cv=self.cross_validation_strategy,
-                                                      scoring=self.scoring)
+                                                      scoring=self.scoring,
+                                                      n_jobs=10
+                                                      )
             scores = np.append(scores, [results.mean()])
         return scores.mean()
 
@@ -30,15 +42,17 @@ class ScoreCalculator:
 
         for name, image, cls in self.image_loader.get_next():
             image_features = np.array([])
-            component = features.channel(image, individual.genome['COLOR'])
-
+            component = features.image_component(image, individual.genome['COLOR'])
+            wavelet_repeats = map_wavelet_repeats(individual.genome['WAVELET_REPEATS'])
             if individual.genome['HISTOGRAM'] > 0.5:
-                component = features.histeq(component)
+                component = features.histogram_equalization(component)
 
             if individual.genome['DOG'] > 0.5:
-                component = features.dog(component, individual.genome['SIGMA1'], individual.genome['SIGMA2'])
+                sigma1 = map_sigma(individual.genome['SIGMA1'])
+                sigma2 = map_sigma(individual.genome['SIGMA2'])
+                component = features.dog(component, sigma1, sigma2)
 
-            for i in range(individual.genome['WAVELET_REPEATS']):
+            for i in range(wavelet_repeats):
                 a, h, v, d = features.wavelet(component, individual.genome['WAVELET'])
                 if individual.genome['APPROXIMATION'] > 0.5:
                     if individual.genome['ENERGY'] > 0.5:

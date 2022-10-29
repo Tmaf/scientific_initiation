@@ -1,28 +1,10 @@
 import random as rd
+import pywt
 
 FEATURES = dict()
 
 FEATURES['COLOR'] = ['r', 'g', 'b', 'h', 's', 'v', 'y']
-FEATURES['WAVELET'] = ['db2', 'db4', 'db8', 'db16', 'db32']
-FEATURES['SIGMA1'] = [1, 3, 5, 7, 9, 11, 13]
-FEATURES['SIGMA2'] = [1, 3, 5, 7, 9, 11, 13]
-FEATURES['WAVELET_REPEATS'] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-
-FEATURES['HISTOGRAM'] = [True, False]
-FEATURES['DOG'] = [True, False]
-FEATURES['APPROXIMATION'] = [True, False]
-FEATURES['HORIZONTAL'] = [True, False]
-FEATURES['VERTICAL'] = [True, False]
-FEATURES['DIAGONAL'] = [True, False]
-
-FEATURES['ENERGY'] = [True, False]
-FEATURES['MEAN'] = [True, False]
-FEATURES['MEDIAN'] = [True, False]
-FEATURES['VARIANCE'] = [True, False]
-FEATURES['MODE'] = [True, False]
-
-FEATURES['ENTROPY'] = [True, False]
-FEATURES['KURTOSIS'] = [True, False]
+FEATURES['WAVELET'] = pywt.wavelist(kind="discrete")
 
 
 class Individual(object):
@@ -31,11 +13,11 @@ class Individual(object):
         if not genome:
             self.__genome = dict()
             self.__genome['COLOR'] = rd.choice(FEATURES['COLOR'])
-            self.__genome['SIGMA1'] = rd.choice(FEATURES['SIGMA1'])
-            self.__genome['SIGMA2'] = rd.choice(FEATURES['SIGMA2'])
             self.__genome['WAVELET'] = rd.choice(FEATURES['WAVELET'])
-            self.__genome['WAVELET_REPEATS'] = rd.choice(FEATURES['WAVELET_REPEATS'])
 
+            self.__genome['SIGMA1'] = rd.random()
+            self.__genome['SIGMA2'] = rd.random()
+            self.__genome['WAVELET_REPEATS'] = rd.random()
             self.__genome['HISTOGRAM'] = rd.random()
             self.__genome['DOG'] = rd.random()
             self.__genome['HORIZONTAL'] = rd.random()
@@ -73,18 +55,14 @@ class Individual(object):
     def mutate(self, tax, best, worst):
         self.__score = 0
         for feature in self.__genome:
-            if feature not in ['COLOR', 'SIGMA1', 'SIGMA2', 'WAVELET_REPEATS', 'WAVELET']:
+            if feature not in ['COLOR', 'WAVELET']:
 
                 worst_variation = rd.random() * (worst.genome[feature] - self.genome[feature])
                 best_variation = rd.random() * (best.genome[feature] - self.genome[feature])
 
                 new_value = self.genome[feature] + best_variation - worst_variation
-                #normalize value to interval of 0 and 1
+                # normalize value to interval of 0 and 1
                 self.genome[feature] = max(min(new_value, 1), 0)
-                # if rd.random() < tax:
-                #     self.genome[feature] += rd.random()
-                # if rd.random() < tax:
-                #     self.genome[feature] -= rd.random()
 
             else:
                 if rd.random() < tax:
@@ -92,15 +70,6 @@ class Individual(object):
                         self.genome[feature] = rd.choice(FEATURES[feature])
                     else:
                         self.genome[feature] = best.genome[feature]
-
-    def random_mutate(self, tax):
-        self.__score = 0
-        for feature in self.__genome:
-            if rd.random() < tax:
-                if feature not in ['COLOR', 'SIGMA1', 'SIGMA2', 'WAVELET_REPEATS', 'WAVELET']:
-                    self.genome[feature] = rd.choice(FEATURES[feature])
-                else:
-                    self.genome[feature] = rd.random()
 
     def to_json(self, additional_info=()):
         genome = self.__genome

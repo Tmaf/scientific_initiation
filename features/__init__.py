@@ -1,6 +1,2 @@
-from features.ImageComponent import image_component as channel
-from features.DoG import dog
-from features.HistogramEqualization import histogram_equalization as histeq
-from features.FeatureExtraction.Energy import energy
-from features.FeatureExtraction.Wavelet import wavelet
-# from features.FeatureExtraction.HOG import hog
+from .features_extraction import wavelet, energy
+from .pre_processors import dog, image_component, histogram_equalization

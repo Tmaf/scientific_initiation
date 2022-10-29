@@ -7,6 +7,8 @@ class Logger:
 
     def __init__(self, title):
         self.title = title
+        with open(f'log/{self.title}.txt', "w") as file:
+            file.close()
 
     def log_generation(self, generation, best_individual: Individual, worst_individual: Individual, population,
                        best_results):
@@ -37,6 +39,7 @@ class Logger:
         {self.title}:
             Generation {generation}:
             WORST:  {worst_individual.score}
+            GENOME:  {worst_individual.genome}
             BEST:   {best_individual.score}
             GENOME: {best_individual.genome}
         ''')
