@@ -72,5 +72,4 @@ if __name__ == '__main__':
 
 # TODO:
 # 1. Create a Classifiers abstraction
-# 2. Pensar em uma implementação otimizada do ImageLoader
-# 3. Ajustar Individual pra permitir o jaya em mais genes
+# 2. Ajustar Individual pra permitir o jaya em mais genes

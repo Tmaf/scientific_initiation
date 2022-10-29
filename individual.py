@@ -3,9 +3,9 @@ import random as rd
 FEATURES = dict()
 
 FEATURES['COLOR'] = ['r', 'g', 'b', 'h', 's', 'v', 'y']
+FEATURES['WAVELET'] = ['db2', 'db4', 'db8', 'db16', 'db32']
 FEATURES['SIGMA1'] = [1, 3, 5, 7, 9, 11, 13]
 FEATURES['SIGMA2'] = [1, 3, 5, 7, 9, 11, 13]
-FEATURES['WAVELET'] = ['db2', 'db4', 'db8', 'db16', 'db32']
 FEATURES['WAVELET_REPEATS'] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
 FEATURES['HISTOGRAM'] = [True, False]
@@ -74,13 +74,17 @@ class Individual(object):
         self.__score = 0
         for feature in self.__genome:
             if feature not in ['COLOR', 'SIGMA1', 'SIGMA2', 'WAVELET_REPEATS', 'WAVELET']:
-                self.genome[feature] = (self.genome[feature]
-                                        + (rd.random() * (best.genome[feature] - self.genome[feature]))
-                                        - (rd.random() * (worst.genome[feature] - self.genome[feature])))
-                if rd.random() < tax:
-                    self.genome[feature] += rd.random()
-                if rd.random() < tax:
-                    self.genome[feature] -= rd.random()
+
+                worst_variation = rd.random() * (worst.genome[feature] - self.genome[feature])
+                best_variation = rd.random() * (best.genome[feature] - self.genome[feature])
+
+                new_value = self.genome[feature] + best_variation - worst_variation
+                #normalize value to interval of 0 and 1
+                self.genome[feature] = max(min(new_value, 1), 0)
+                # if rd.random() < tax:
+                #     self.genome[feature] += rd.random()
+                # if rd.random() < tax:
+                #     self.genome[feature] -= rd.random()
 
             else:
                 if rd.random() < tax:
