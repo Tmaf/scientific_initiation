@@ -15,6 +15,20 @@ def map_sigma(value: float):
     return math.floor(value * 16) * 2 + 1  # 1, 3, 5,...,31
 
 
+def apply_descriptors(individual, image_features):
+    descriptors = np.empty([])
+
+    if individual.genome['ENERGY'] > 0.5:
+        descriptors = np.append(descriptors, np.array([features.energy(image_features)]))
+    if individual.genome['MEAN'] > 0.5:
+        descriptors = np.append(descriptors, np.array([np.mean(image_features)]))
+    if individual.genome['MEDIAN'] > 0.5:
+        descriptors = np.append(descriptors, np.array([np.median(image_features)]))
+    if individual.genome['VARIANCE'] > 0.5:
+        descriptors = np.append(descriptors, np.array([np.var(image_features)]))
+    return descriptors
+
+
 class ScoreCalculator:
     def __init__(self, cross_validation_strategy, scoring, classifiers, image_loader):
         self.cross_validation_strategy = cross_validation_strategy
@@ -55,49 +69,16 @@ class ScoreCalculator:
             for i in range(wavelet_repeats):
                 a, h, v, d = features.wavelet(component, individual.genome['WAVELET'])
                 if individual.genome['APPROXIMATION'] > 0.5:
-                    if individual.genome['ENERGY'] > 0.5:
-                        image_features = np.append(image_features, np.array([features.energy(a)]))
-                    if individual.genome['MEAN'] > 0.5:
-                        image_features = np.append(image_features, np.array([np.mean(a)]))
-                    if individual.genome['MEDIAN'] > 0.5:
-                        image_features = np.append(image_features, np.array([np.median(a)]))
-                    if individual.genome['VARIANCE'] > 0.5:
-                        image_features = np.append(image_features, np.array([np.var(a)]))
-                    # if individual.genome['MODE'] > 0.5:
-                    #     image_features = np.append(image_features, np.array([np.argmax(np.bincount(a))]))
+                    image_features =  np.append(image_features,apply_descriptors(individual,a))
+
                 if individual.genome['HORIZONTAL'] > 0.5:
-                    if individual.genome['ENERGY'] > 0.5:
-                        image_features = np.append(image_features, np.array([features.energy(h)]))
-                    if individual.genome['MEAN'] > 0.5:
-                        image_features = np.append(image_features, np.array([np.mean(h)]))
-                    if individual.genome['MEDIAN'] > 0.5:
-                        image_features = np.append(image_features, np.array([np.median(h)]))
-                    if individual.genome['VARIANCE'] > 0.5:
-                        image_features = np.append(image_features, np.array([np.var(h)]))
-                    # if individual.genome['MODE'] > 0.5:
-                    #     image_features = np.append(image_features, np.array([np.argmax(np.bincount(h))]))
+                    image_features = np.append(image_features, apply_descriptors(individual, h))
+
                 if individual.genome['VERTICAL'] > 0.5:
-                    if individual.genome['ENERGY'] > 0.5:
-                        image_features = np.append(image_features, np.array([features.energy(v)]))
-                    if individual.genome['MEAN'] > 0.5:
-                        image_features = np.append(image_features, np.array([np.mean(v)]))
-                    if individual.genome['MEDIAN'] > 0.5:
-                        image_features = np.append(image_features, np.array([np.median(v)]))
-                    if individual.genome['VARIANCE'] > 0.5:
-                        image_features = np.append(image_features, np.array([np.var(v)]))
-                    # if individual.genome['MODE'] > 0.5:
-                    #     image_features = np.append(image_features, np.array([np.argmax(np.bincount(v))]))
+                    image_features = np.append(image_features, apply_descriptors(individual, v))
+
                 if individual.genome['DIAGONAL'] > 0.5:
-                    if individual.genome['ENERGY'] > 0.5:
-                        image_features = np.append(image_features, np.array([features.energy(d)]))
-                    if individual.genome['MEAN'] > 0.5:
-                        image_features = np.append(image_features, np.array([np.mean(d)]))
-                    if individual.genome['MEDIAN'] > 0.5:
-                        image_features = np.append(image_features, np.array([np.median(d)]))
-                    if individual.genome['VARIANCE'] > 0.5:
-                        image_features = np.append(image_features, np.array([np.var(d)]))
-                    # if individual.genome['MODE'] > 0.5:
-                    #     image_features = np.append(image_features, np.array([np.argmax(np.bincount(d))]))
+                    image_features = np.append(image_features, apply_descriptors(individual, d))
 
                 component = a
 

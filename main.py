@@ -17,9 +17,9 @@ from sklearn.ensemble import RandomForestClassifier
 if __name__ == '__main__':
     PROCESS_NUMBERS = 12
     POPULATION_SIZE = 10
-    NUMBER_OF_GENERATIONS = 20
+    NUMBER_OF_GENERATIONS = 10
     MUTATION_TAX = 0.2
-    NUMBER_OF_IMAGES = 60
+    NUMBER_OF_IMAGES = 30
     PLOT_NAME = "FL_CLL_RANDOM_FOREST"
     SEED_K_FOLD = 123456
     K_SPLITS = 10
