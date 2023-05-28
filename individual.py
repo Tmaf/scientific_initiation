@@ -35,6 +35,7 @@ class Individual(object):
         else:
             self.__genome = genome
         self.__score = 0
+        self.__image_table= None
 
     @property
     def genome(self):
@@ -43,6 +44,14 @@ class Individual(object):
     @property
     def score(self):
         return self.__score
+
+    @property
+    def image_table(self):
+        return self.__image_table
+
+    @image_table.setter
+    def image_table(self, image_table):
+        self.__image_table = image_table
 
     @score.setter
     def score(self, score):

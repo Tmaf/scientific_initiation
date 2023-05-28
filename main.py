@@ -16,11 +16,11 @@ from sklearn.ensemble import RandomForestClassifier
 
 if __name__ == '__main__':
     PROCESS_NUMBERS = 12
-    POPULATION_SIZE = 10
-    NUMBER_OF_GENERATIONS = 10
+    POPULATION_SIZE = 20
+    NUMBER_OF_GENERATIONS = 20
     MUTATION_TAX = 0.2
-    NUMBER_OF_IMAGES = 30
-    PLOT_NAME = "FL_CLL_RANDOM_FOREST"
+    NUMBER_OF_IMAGES = 10
+    PLOT_NAME = "FL_CLL_RANDOM_FOREST_2"
     SEED_K_FOLD = 123456
     K_SPLITS = 10
     SCORING = 'roc_auc'  # 'accuracy'

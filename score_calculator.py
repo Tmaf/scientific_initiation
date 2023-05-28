@@ -55,7 +55,6 @@ class ScoreCalculator:
         y = []
 
         for name, image, cls in self.image_loader.get_next():
-            image_features = np.array([])
             component = features.image_component(image, individual.genome['COLOR'])
             wavelet_repeats = map_wavelet_repeats(individual.genome['WAVELET_REPEATS'])
             if individual.genome['HISTOGRAM'] > 0.5:
@@ -66,8 +65,10 @@ class ScoreCalculator:
                 sigma2 = map_sigma(individual.genome['SIGMA2'])
                 component = features.dog(component, sigma1, sigma2)
 
+            image_features = np.array([])
             for i in range(wavelet_repeats):
                 a, h, v, d = features.wavelet(component, individual.genome['WAVELET'])
+
                 if individual.genome['APPROXIMATION'] > 0.5:
                     image_features =  np.append(image_features,apply_descriptors(individual,a))
 
@@ -87,6 +88,7 @@ class ScoreCalculator:
 
         if np.shape(x)[1] != 0:
             individual.score = self.__get_score(np.array(x), np.array(y))
+            individual.image_table = np.append(np.array(x),(np.array(y).reshape(-1, 1)),axis=1)
         else:
             individual.score = 0
 

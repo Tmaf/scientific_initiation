@@ -1,19 +1,21 @@
 from matplotlib import pyplot as plt
 import numpy as np
 from individual import Individual
+import pandas as pd
 
 
 class Logger:
 
     def __init__(self, title):
         self.title = title
-        with open(f'log/{self.title}.txt', "w") as file:
+        with open(f'results/log/{self.title}.txt', "w") as file:
             file.close()
+
 
     def log_generation(self, generation, best_individual: Individual, worst_individual: Individual, population,
                        best_results):
         self.__print_generation_info(generation, best_individual, worst_individual)
-        self.__write_best_genome(best_individual)
+        self.__write_best_genome(best_individual, generation)
 
     def plot_evolution_score(self, best_score, generation):
         plt.close()
@@ -28,11 +30,13 @@ class Logger:
         plt.xlabel("Generations")
         plt.ylabel("Score")
         plt.title("Evolution until generation {}".format(generation))
-        plt.savefig(f'plots/{self.title}_evolution_score_generation_{generation}.svg', dpi=500)
+        plt.savefig(f'results/plots/{self.title}_evolution_score_generation_{generation}.svg', dpi=500)
 
-    def __write_best_genome(self, best_individual: Individual):
-        with open(f'log/{self.title}.txt', "a") as file:
+    def __write_best_genome(self, best_individual: Individual, generation):
+        with open(f'results/log/{self.title}.txt', "a") as file:
             file.write(f'{best_individual.genome}: {best_individual.score}\n')
+        dataframe = pd.DataFrame(best_individual.image_table)
+        dataframe.to_csv(f'results/features/{self.title}_generation_{generation}.csv', index=False, header=False)
 
     def __print_generation_info(self, generation: int, best_individual: Individual, worst_individual: Individual):
         print(f'''
