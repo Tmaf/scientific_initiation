@@ -1,7 +1,7 @@
 import math
 
 import numpy as np
-from sklearn import model_selection
+from sklearn import model_selection, preprocessing
 
 import features
 from individual import Individual
@@ -40,9 +40,11 @@ class ScoreCalculator:
         scores = np.array([])
         for model in self.classifiers:
             classifier = self.classifiers[model]()
+            X = preprocessing.scale(x)
+            Y = preprocessing.scale(y)
             results = model_selection.cross_val_score(estimator=classifier,
-                                                      X=x,
-                                                      y=y,
+                                                      X=X,
+                                                      y=Y,
                                                       cv=self.cross_validation_strategy,
                                                       scoring=self.scoring,
                                                       n_jobs=10

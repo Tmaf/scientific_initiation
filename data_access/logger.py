@@ -1,3 +1,4 @@
+import os
 from matplotlib import pyplot as plt
 import numpy as np
 from individual import Individual
@@ -8,9 +9,14 @@ class Logger:
 
     def __init__(self, title):
         self.title = title
-        with open(f'results/log/{self.title}.txt', "w") as file:
-            file.close()
+        self.__create_folders()
 
+
+    def __create_folders(self):
+        if not os.path.exists(f'./results/{self.title}/features'):
+            os.makedirs(f'./results/{self.title}/features')
+        with open(f'results/{self.title}/best.txt', "w") as file:
+            file.close()
 
     def log_generation(self, generation, best_individual: Individual, worst_individual: Individual, population,
                        best_results):
@@ -30,18 +36,18 @@ class Logger:
         plt.xlabel("Generations")
         plt.ylabel("Score")
         plt.title("Evolution until generation {}".format(generation))
-        plt.savefig(f'results/plots/{self.title}_evolution_score_generation_{generation}.svg', dpi=500)
+        plt.savefig(f'results/{self.title}/evolution_score_generation_{generation}.svg', dpi=500)
 
     def __write_best_genome(self, best_individual: Individual, generation):
-        with open(f'results/log/{self.title}.txt', "a") as file:
+        with open(f'results/{self.title}/best.txt', "a") as file:
             file.write(f'{best_individual.genome}: {best_individual.score}\n')
         dataframe = pd.DataFrame(best_individual.image_table)
-        dataframe.to_csv(f'results/features/{self.title}_generation_{generation}.csv', index=False, header=False)
+        dataframe.to_csv(f'results/{self.title}/features/generation_{generation+1}.csv', index=False, header=False)
 
     def __print_generation_info(self, generation: int, best_individual: Individual, worst_individual: Individual):
         print(f'''
         {self.title}:
-            Generation {generation}:
+            Generation {generation+1}:
             WORST:  {worst_individual.score}
             GENOME:  {worst_individual.genome}
             BEST:   {best_individual.score}
