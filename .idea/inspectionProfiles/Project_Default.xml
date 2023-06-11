@@ -6,6 +6,7 @@
         <list>
           <option value="cv2.*" />
           <option value="pywt.wavelist" />
+          <option value="analitics.confusion_matrix.cmap" />
         </list>
       </option>
     </inspection_tool>

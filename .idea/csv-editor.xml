@@ -3,6 +3,13 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
+        <entry key="\results\CLL_MCL_RANDOM_FOREST\features\generation_1.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\results\FL_MCL_LINEAR_SVM\features\generation_1.csv">
           <value>
             <Attribute>

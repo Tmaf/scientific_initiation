@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa158bc8-66d0-41fb-955f-66e49f5b3009" name="Default Changelist" comment="score calculator add table">
-      <change afterPath="$PROJECT_DIR$/.idea/csv-editor.xml" afterDir="false" />
+    <list default="true" id="fa158bc8-66d0-41fb-955f-66e49f5b3009" name="Default Changelist" comment="add helpers">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_access/logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_access/logger.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/score_calculator.py" beforeDir="false" afterPath="$PROJECT_DIR$/score_calculator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/analitics/confusion_matrix.py" beforeDir="false" afterPath="$PROJECT_DIR$/analitics/confusion_matrix.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +82,7 @@
       <recent name="C:\Users\tmaf\PycharmProjects\scientific_initiation\features\pre_processors" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.confusion_matrix">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="genetic" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -108,20 +105,36 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="dog_extractor" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="confusion_matrix" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="genetic" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Desktop/TCC/figuras" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/analitics" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$USER_HOME$/Desktop/TCC/figuras/dog_extractor.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/analitics/confusion_matrix.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="features_analise" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="genetic" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/analitics" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/analitics/features_analise.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -152,20 +165,17 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="roc_curve" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="genetic" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Desktop/TCC/figuras" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/analitics" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$USER_HOME$/Desktop/TCC/figuras/test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/analitics/roc_curve.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -198,10 +208,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.confusion_matrix" />
+        <item itemvalue="Python.roc_curve" />
+        <item itemvalue="Python.features_analise" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.wavelet" />
-        <item itemvalue="Python.test" />
-        <item itemvalue="Python.dog_extractor" />
       </list>
     </recent_temporary>
   </component>
@@ -242,7 +253,8 @@
       <workItem from="1686238650970" duration="11442000" />
       <workItem from="1686319059716" duration="6690000" />
       <workItem from="1686331677543" duration="5099000" />
-      <workItem from="1686430326368" duration="905000" />
+      <workItem from="1686430326368" duration="3123000" />
+      <workItem from="1686496935172" duration="6296000" />
     </task>
     <task id="LOCAL-00001" summary="code adjusts">
       <created>1666477532271</created>
@@ -356,7 +368,21 @@
       <option name="project" value="LOCAL" />
       <updated>1685317380102</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="score calculator add table">
+      <created>1686431270986</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1686431270986</updated>
+    </task>
+    <task id="LOCAL-00018" summary="add helpers">
+      <created>1686503392065</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1686503392065</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -395,7 +421,8 @@
     <MESSAGE value="folder structure adjusts" />
     <MESSAGE value="added descriptor function" />
     <MESSAGE value="score calculator add table" />
-    <option name="LAST_COMMIT_MESSAGE" value="score calculator add table" />
+    <MESSAGE value="add helpers" />
+    <option name="LAST_COMMIT_MESSAGE" value="add helpers" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/scientific_initiation$wavelet.coverage" NAME="wavelet Coverage Results" MODIFIED="1670980391269" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Desktop/TCC/figuras" />

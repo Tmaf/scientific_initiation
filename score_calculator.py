@@ -40,11 +40,10 @@ class ScoreCalculator:
         scores = np.array([])
         for model in self.classifiers:
             classifier = self.classifiers[model]()
-            X = preprocessing.scale(x)
-            Y = preprocessing.scale(y)
+
             results = model_selection.cross_val_score(estimator=classifier,
-                                                      X=X,
-                                                      y=Y,
+                                                      X=x,
+                                                      y=y,
                                                       cv=self.cross_validation_strategy,
                                                       scoring=self.scoring,
                                                       n_jobs=10
