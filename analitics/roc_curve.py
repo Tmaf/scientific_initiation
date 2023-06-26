@@ -10,7 +10,7 @@ from sklearn.ensemble import AdaBoostClassifier
 from sklearn.svm import SVC
 RANDOM_STATE = 123456
 
-def generate_roc(df,classifier, title=""):
+def generate_roc(df,classifier, title="",saveTitle=""):
     X = df.drop(df.columns[-1], axis=1)
     y = df[df.columns[-1]]
     n_samples, n_features = X.shape
@@ -71,16 +71,53 @@ def generate_roc(df,classifier, title=""):
     )
     ax.axis("square")
     ax.legend(loc="lower right")
-    plt.show()
+    # plt.show()
+    plt.savefig(f"{saveTitle}.png")
 
 
 
 if __name__ == "__main__":
-    df_20 = pd.read_csv('../results/CLL_MCL_ADA_BOOST/features/generation_20.csv', header=None, sep=',')
-    df_01 = pd.read_csv('../results/CLL_MCL_ADA_BOOST/features/generation_1.csv', header=None, sep=',')
-    # classifier = RandomForestClassifier(random_state=RANDOM_STATE)
-    # classifier = RandomForestClassifier(random_state=RANDOM_STATE)
-    classifier = AdaBoostClassifier(random_state=RANDOM_STATE)
+    rd = RandomForestClassifier(random_state=RANDOM_STATE)
 
-    # generate_roc(df_01,classifier=classifier, title="CLL x MCL usando Ada Boost: Ger. 01")
-    # generate_roc(df_20,classifier=classifier, title="CLL x MCL usando Ada Boost: Ger. 20")
+        # title, classifierTitle,classifier, file1, file2
+    experiments = [
+        ("LLC x LCM", "Ada Boost", AdaBoostClassifier(random_state=RANDOM_STATE),
+         '../results/CLL_MCL_ADA_BOOST/features/generation_1.csv',
+         '../results/CLL_MCL_ADA_BOOST/features/generation_20.csv'),
+        ("LLC x LCM", "Random Forest", RandomForestClassifier(random_state=RANDOM_STATE),
+         '../results/CLL_MCL_RANDOM_FOREST/features/generation_1.csv',
+         '../results/CLL_MCL_RANDOM_FOREST/features/generation_20.csv'),
+        ("LLC x LCM", "SVM", RandomForestClassifier(random_state=RANDOM_STATE),
+         '../results/CLL_MCL_LINEAR_SVM/features/generation_1.csv',
+         '../results/CLL_MCL_LINEAR_SVM/features/generation_20.csv'),
+
+        ("LLC x LF", "Ada Boost", AdaBoostClassifier(random_state=RANDOM_STATE),
+         '../results/FL_CLL_ADA_BOOST/features/FL_CLL_ADA_BOOST_generation_0.csv',
+         '../results/FL_CLL_ADA_BOOST/features/FL_CLL_ADA_BOOST_generation_19.csv'),
+        ("LLC x LF", "Random Forest", RandomForestClassifier(random_state=RANDOM_STATE),
+         '../results/FL_CLL_RANDOM_FOREST/features/FL_CLL_RANDOM_FOREST_generation_0.csv',
+         '../results/FL_CLL_RANDOM_FOREST/features/FL_CLL_RANDOM_FOREST_generation_19.csv'),
+        ("LLC x LF", "SVM", RandomForestClassifier(random_state=RANDOM_STATE),
+         '../results/FL_CLL_LINEAR_SVM/features/generation_1.csv',
+         '../results/FL_CLL_LINEAR_SVM/features/generation_20.csv'),
+
+        ("LF x LCM", "Ada Boost", AdaBoostClassifier(random_state=RANDOM_STATE),
+         '../results/FL_MCL_ADA_BOOST/features/generation_1.csv',
+         '../results/FL_MCL_ADA_BOOST/features/generation_20.csv'),
+        ("LF x LCM", "Random Forest", RandomForestClassifier(random_state=RANDOM_STATE),
+         '../results/FL_MCL_RANDOM_FOREST/features/generation_1.csv',
+         '../results/FL_MCL_RANDOM_FOREST/features/generation_20.csv'),
+        ("LF x LCM", "SVM",RandomForestClassifier(random_state=RANDOM_STATE),
+         '../results/FL_MCL_LINEAR_SVM/features/generation_1.csv',
+         '../results/FL_MCL_LINEAR_SVM/features/generation_20.csv')
+    ]
+
+    for (title,classifierTitle,classifier, gen1, gen20) in experiments:
+        df_01 = pd.read_csv(gen1, header=None, sep=',')
+        generate_roc(df_01, classifier=classifier, title=f"{title} usando {classifierTitle}: Ger. 01",
+                     saveTitle=f"{title}_{classifierTitle}_1")
+
+        df_20 = pd.read_csv(gen20, header=None, sep=',')
+        generate_roc(df_20, classifier=classifier, title=f"{title} usando {classifierTitle}: Ger. 20",
+                     saveTitle=f"{title}_{classifierTitle}_20")
+

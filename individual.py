@@ -1,19 +1,12 @@
 import random as rd
-import pywt
-
-FEATURES = dict()
-
-FEATURES['COLOR'] = ['r', 'g', 'b', 'h', 's', 'v', 'y']
-FEATURES['WAVELET'] = pywt.wavelist(kind="discrete")
-
 
 class Individual(object):
 
     def __init__(self, genome=None):
         if not genome:
             self.__genome = dict()
-            self.__genome['COLOR'] = rd.choice(FEATURES['COLOR'])
-            self.__genome['WAVELET'] = rd.choice(FEATURES['WAVELET'])
+            self.__genome['COLOR'] =  rd.random()  #rd.choice(FEATURES['COLOR'])
+            self.__genome['WAVELET'] = rd.random() #rd.choice(FEATURES['WAVELET'])
 
             self.__genome['SIGMA1'] = rd.random()
             self.__genome['SIGMA2'] = rd.random()
@@ -61,23 +54,17 @@ class Individual(object):
     def genome(self, genome):
         self.__genome = genome
 
-    def mutate(self, tax, best, worst):
+    def mutate(self, best, worst):
         self.__score = 0
         for feature in self.__genome:
-            if feature not in ['COLOR', 'WAVELET']:
-                distance_from_worst = rd.random() * (worst.genome[feature] - self.genome[feature])
-                distance_from_best = rd.random() * (best.genome[feature] - self.genome[feature])
+            distance_from_worst = rd.random() * (worst.genome[feature] - self.genome[feature])
+            distance_from_best = rd.random() * (best.genome[feature] - self.genome[feature])
 
-                new_value = self.genome[feature] + distance_from_best - distance_from_worst
-                # normalize value to interval of 0 and 1
-                self.genome[feature] = max(min(new_value, 1), 0)
+            new_value = self.genome[feature] + distance_from_best - distance_from_worst
+            # normalize value to interval of 0 and 1
+            self.genome[feature] = max(min(new_value, 1), 0)
 
-            else:
-                if rd.random() < tax:
-                    if rd.random() < tax:
-                        self.genome[feature] = rd.choice(FEATURES[feature])
-                    else:
-                        self.genome[feature] = best.genome[feature]
+
 
     def to_json(self, additional_info=()):
         genome = self.__genome

@@ -13,23 +13,20 @@ def mutate_population(
         population: List[Individual],
         best_individual: Individual,
         worst_individual: Individual,
-        mutation_tax: float
 ):
     for individual in population:
         if individual != best_individual:
-            individual.mutate(mutation_tax, best=best_individual, worst=worst_individual)
+            individual.mutate(best=best_individual, worst=worst_individual)
 
 
 class Jaya:
     def __init__(self,
                  population_size: int,
                  generations_number: int,
-                 mutation_tax: float,
                  score_calculator: ScoreCalculator,
                  logger: Logger,
                  pool):
         self.population_size = population_size
-        self.mutation_tax = mutation_tax
         self.generations_number = generations_number
 
         self.logger = logger
@@ -46,5 +43,5 @@ class Jaya:
             worst_individual = min(population)
             best_results.append(best_individual.score)
             self.logger.log_generation(generation, best_individual, worst_individual, population, best_results)
-            mutate_population(population, best_individual, worst_individual, self.mutation_tax)
+            mutate_population(population, best_individual, worst_individual)
         self.logger.plot_evolution_score(best_results, self.generations_number)

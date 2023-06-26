@@ -1,7 +1,8 @@
 import math
 
 import numpy as np
-from sklearn import model_selection, preprocessing
+import pywt
+from sklearn import model_selection
 
 import features
 from individual import Individual
@@ -14,6 +15,15 @@ def map_wavelet_repeats(value: float):
 def map_sigma(value: float):
     return math.floor(value * 16) * 2 + 1  # 1, 3, 5,...,31
 
+def get_channel_from_value(value):
+    colors = ['r', 'g', 'b', 'h', 's', 'v', 'y']
+    index = math.floor(value * len(colors))
+    return colors[index]
+
+def get_wavelet_function_from_value(value):
+    waves = pywt.wavelist(kind="discrete")
+    index = math.floor(value * len(waves))
+    return waves[index]
 
 def apply_descriptors(individual, image_features):
     descriptors = np.empty([])
@@ -56,19 +66,20 @@ class ScoreCalculator:
         y = []
 
         for name, image, cls in self.image_loader.get_next():
-            component = features.image_component(image, individual.genome['COLOR'])
+            component = features.image_component(image, get_channel_from_value(individual.genome['COLOR']))
             wavelet_repeats = map_wavelet_repeats(individual.genome['WAVELET_REPEATS'])
-            if individual.genome['HISTOGRAM'] > 0.5:
-                component = features.histogram_equalization(component)
 
             if individual.genome['DOG'] > 0.5:
                 sigma1 = map_sigma(individual.genome['SIGMA1'])
                 sigma2 = map_sigma(individual.genome['SIGMA2'])
                 component = features.dog(component, sigma1, sigma2)
 
+            if individual.genome['HISTOGRAM'] > 0.5:
+                component = features.histogram_equalization(component)
+
             image_features = np.array([])
             for i in range(wavelet_repeats):
-                a, h, v, d = features.wavelet(component, individual.genome['WAVELET'])
+                a, h, v, d = features.wavelet(component, get_wavelet_function_from_value(individual.genome['WAVELET']))
 
                 if individual.genome['APPROXIMATION'] > 0.5:
                     image_features =  np.append(image_features,apply_descriptors(individual,a))

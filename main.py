@@ -17,12 +17,11 @@ from sklearn.svm import SVC
 
 
 if __name__ == '__main__':
-    PROCESS_NUMBERS = 12
+    PROCESS_NUMBERS = 8
     POPULATION_SIZE = 20
-    NUMBER_OF_GENERATIONS = 20
-    MUTATION_TAX = 0.2
-    NUMBER_OF_IMAGES = 100
-    PLOT_NAME = "CLL_MCL_LINEAR_SVM"
+    NUMBER_OF_GENERATIONS = 10
+    NUMBER_OF_IMAGES = 10
+    PLOT_NAME = "CLL_MCL_ADA_BOOST_2"
     SEED_K_FOLD = 123456
     K_SPLITS = 10
     SCORING = 'roc_auc'  # 'accuracy'
@@ -33,14 +32,14 @@ if __name__ == '__main__':
     ]
     CLASSIFIERS = {
         # "Nearest Neighbors": lambda:  KNeighborsClassifier(5),
-        "Linear SVM": lambda: SVC(kernel="linear", C=0.025,cache_size=7000, random_state=SEED_K_FOLD, gamma="scale"),
+        # "Linear SVM": lambda: SVC(kernel="linear", C=0.025,cache_size=7000, random_state=SEED_K_FOLD, gamma="scale"),
         # "Sigmoid SVM": lambda: SVC(kernel="sigmoid", C=0.025, random_state=SEED_K_FOLD),
         # "RBF SVM": lambda: SVC(kernel="rbf", C=0.025, random_state=SEED_K_FOLD),
         # "Gaussian Process": lambda:  GaussianProcessClassifier(1.0 * RBF(1.0), random_state=SEED_K_FOLD),
         # "Decision Tree": lambda: DecisionTreeClassifier(random_state=SEED_K_FOLD),
         # "Random Forest": lambda: RandomForestClassifier(random_state=SEED_K_FOLD),
         # "Neural Net": lambda: MLPClassifier(alpha=1, random_state=SEED_K_FOLD),
-        #"AdaBoost": lambda: AdaBoostClassifier(random_state=SEED_K_FOLD),
+        "AdaBoost": lambda: AdaBoostClassifier(random_state=SEED_K_FOLD),
     }
 
     logger = Logger(title=PLOT_NAME)
@@ -59,7 +58,6 @@ if __name__ == '__main__':
                                       )
     jaya = Jaya(population_size=POPULATION_SIZE,
                 generations_number=NUMBER_OF_GENERATIONS,
-                mutation_tax=MUTATION_TAX,
                 score_calculator=scoreCalculator,
                 logger=logger,
                 pool=poolMapper
