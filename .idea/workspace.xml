@@ -5,17 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa158bc8-66d0-41fb-955f-66e49f5b3009" name="Default Changelist" comment="code refactor and add dockerfile">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/csv-editor.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analitics/confusion_matrix.py" beforeDir="false" afterPath="$PROJECT_DIR$/analitics/confusion_matrix.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analitics/features_analise.py" beforeDir="false" afterPath="$PROJECT_DIR$/analitics/features_analise.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/analitics/translate_gene.py" beforeDir="false" afterPath="$PROJECT_DIR$/analitics/translate_gene.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data_access/logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_access/logger.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/score_calculator.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/score_calculator.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -211,7 +201,7 @@
       <workItem from="1687213124205" duration="5632000" />
       <workItem from="1687702381202" duration="18830000" />
       <workItem from="1696172305654" duration="8067000" />
-      <workItem from="1696194165586" duration="6304000" />
+      <workItem from="1696194165586" duration="6370000" />
     </task>
     <task id="LOCAL-00001" summary="code adjusts">
       <created>1666477532271</created>
@@ -368,7 +358,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696184609632</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="code refactor and add dockerfile">
+      <option name="closed" value="true" />
+      <created>1696201235561</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1696201235561</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

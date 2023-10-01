@@ -113,17 +113,15 @@ if __name__ == "__main__":
         ("LF x LCM", "FL_MCL" )
     ]
 
-    a = {'COLOR': 0.4756548640062781, 'WAVELET': 0.071552082115518, 'SIGMA1': 0.6819241075882774, 'SIGMA2': 0.7927073628455811, 'WAVELET_REPEATS': 0.8907000715042117, 'HISTOGRAM': 0.1543408880409891, 'DOG': 0.9216278651700996, 'HORIZONTAL': 0.4674301989597256, 'VERTICAL': 0.7317496069664453, 'DIAGONAL': 0.7468122152555806, 'APPROXIMATION': 0.08035760250499402, 'ENERGY': 0.9331797352674124, 'MEAN': 0.9913856512629922, 'MEDIAN': 0.8206884163113406, 'VARIANCE': 0.4528311133705688}
-    print(get_properties(a))
-    #
-    #
-    #
-    # for (title, fold) in experiments:
-    #     classifiers =[
-    #         ("Random Forest","tab:blue", f"../results/{fold}_RANDOM_FOREST/best.txt"),
-    #         ("Ada Boost","tab:orange", f"../results/{fold}_ADA_BOOST/best.txt"),
-    #         ("SVM", "tab:green", f"../results/{fold}_LINEAR_SVM/best.txt")
-    #     ]
-    #
-    #     for (classifier, color, file) in classifiers:
-    #         apply_in_template(title, classifier, file)
+
+
+
+    for (title, fold) in experiments:
+        classifiers =[
+            ("Random Forest","tab:blue", f"../results/{fold}_RANDOM_FOREST/best.txt"),
+            ("Ada Boost","tab:orange", f"../results/{fold}_ADA_BOOST/best.txt"),
+            ("SVM", "tab:green", f"../results/{fold}_LINEAR_SVM/best.txt")
+        ]
+
+        for (classifier, color, file) in classifiers:
+            apply_in_template(title, classifier, file)
