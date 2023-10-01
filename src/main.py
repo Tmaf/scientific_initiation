@@ -4,9 +4,7 @@ from data_access import Logger, ImageLoader
 import pathos.multiprocessing
 from sklearn.model_selection import StratifiedKFold
 
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import AdaBoostClassifier
-from sklearn.svm import SVC
 
 # from sklearn.neighbors import KNeighborsClassifier
 # from sklearn.gaussian_process import GaussianProcessClassifier
@@ -17,18 +15,18 @@ from sklearn.svm import SVC
 
 
 if __name__ == '__main__':
-    PROCESS_NUMBERS = 8
+    PROCESS_NUMBERS = 4
     POPULATION_SIZE = 20
     NUMBER_OF_GENERATIONS = 10
-    NUMBER_OF_IMAGES = 10
+    NUMBER_OF_IMAGES = 30
     PLOT_NAME = "CLL_MCL_ADA_BOOST_2"
     SEED_K_FOLD = 123456
     K_SPLITS = 10
     SCORING = 'roc_auc'  # 'accuracy'
     DATABASES = [
        # "data/FL",
-        "data/CLL",
-        "data/MCL"
+        "../data/CLL",
+        "../data/MCL"
     ]
     CLASSIFIERS = {
         # "Nearest Neighbors": lambda:  KNeighborsClassifier(5),

@@ -1,9 +1,7 @@
 import os
 from matplotlib import pyplot as plt
 import numpy as np
-from individual import Individual
 import pandas as pd
-
 
 class Logger:
 
@@ -18,7 +16,7 @@ class Logger:
         with open(f'results/{self.title}/best.txt', "w") as file:
             file.close()
 
-    def log_generation(self, generation, best_individual: Individual, worst_individual: Individual, population,
+    def log_generation(self, generation, best_individual, worst_individual, population,
                        best_results):
         self.__print_generation_info(generation, best_individual, worst_individual)
         self.__write_best_genome(best_individual, generation)
@@ -38,13 +36,13 @@ class Logger:
         plt.title("Evolution until generation {}".format(generation))
         plt.savefig(f'results/{self.title}/evolution_score_generation_{generation}.svg', dpi=500)
 
-    def __write_best_genome(self, best_individual: Individual, generation):
+    def __write_best_genome(self, best_individual, generation):
         with open(f'results/{self.title}/best.txt', "a") as file:
             file.write(f'{best_individual.genome}: {best_individual.score}\n')
         dataframe = pd.DataFrame(best_individual.image_table)
         dataframe.to_csv(f'results/{self.title}/features/generation_{generation+1}.csv', index=False, header=False)
 
-    def __print_generation_info(self, generation: int, best_individual: Individual, worst_individual: Individual):
+    def __print_generation_info(self, generation: int, best_individual, worst_individual):
         print(f'''
         {self.title}:
             Generation {generation+1}:

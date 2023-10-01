@@ -61,8 +61,8 @@ class Individual(object):
             distance_from_best = rd.random() * (best.genome[feature] - self.genome[feature])
 
             new_value = self.genome[feature] + distance_from_best - distance_from_worst
-            # normalize value to interval of 0 and 1
-            self.genome[feature] = max(min(new_value, 1), 0)
+            # normalize value to interval of 0 and 0.999999
+            self.genome[feature] = max(min(new_value, 0.9999999), 0)
 
 
 

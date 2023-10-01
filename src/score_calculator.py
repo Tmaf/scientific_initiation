@@ -22,7 +22,7 @@ def get_channel_from_value(value):
 
 def get_wavelet_function_from_value(value):
     waves = pywt.wavelist(kind="discrete")
-    index = math.floor(value * len(waves))
+    index = math.floor(value * (len(waves)))
     return waves[index]
 
 def apply_descriptors(individual, image_features):

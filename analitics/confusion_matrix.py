@@ -30,8 +30,8 @@ def generate_confusion_matrix(df, classifier,title, classes):
     plt.show()
 
 if __name__ == "__main__":
-    df_20 = pd.read_csv('../results/CLL_MCL_ADA_BOOST/features/generation_20.csv', header=None, sep=',')
-    df_01 = pd.read_csv('../results/CLL_MCL_ADA_BOOST/features/generation_1.csv', header=None, sep=',')
+    df_20 = pd.read_csv('../src/results/CLL_MCL_ADA_BOOST/features/generation_20.csv', header=None, sep=',')
+    df_01 = pd.read_csv('../src/results/CLL_MCL_ADA_BOOST/features/generation_1.csv', header=None, sep=',')
     # classifier = RandomForestClassifier(random_state=RANDOM_STATE)
     # classifier = RandomForestClassifier(random_state=RANDOM_STATE)
     classifier = AdaBoostClassifier(random_state=RANDOM_STATE)
