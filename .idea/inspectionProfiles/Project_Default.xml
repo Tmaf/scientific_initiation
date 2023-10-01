@@ -12,6 +12,7 @@
           <option value="cv2.*" />
           <option value="pywt.wavelist" />
           <option value="analitics.confusion_matrix.cmap" />
+          <option value="src.score_calculator.logger" />
         </list>
       </option>
     </inspection_tool>

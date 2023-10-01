@@ -4,7 +4,7 @@ import pandas as pd
 
 
 if __name__ == '__main__':
-    df = pd.read_csv('../src/results/CLL_MCL_ADA_BOOST/features/generation_20.csv', header=None)
+    df = pd.read_csv('../results/results/CLL_MCL_ADA_BOOST/features/generation_20.csv', header=None)
     X = df.iloc[:, 0:-1]
     y = df.iloc[:, -1]
 

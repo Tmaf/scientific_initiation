@@ -1,3 +1,4 @@
+import logging
 import math
 
 import numpy as np
@@ -9,7 +10,7 @@ from individual import Individual
 
 
 def map_wavelet_repeats(value: float):
-    return math.floor(value * 30)+1  # 1, 1, 2, 3, 4, ..., 30
+    return math.floor(value * 7)+1  # 1, 1, 2, 3, 4, ..., 30
 
 
 def map_sigma(value: float):
@@ -40,11 +41,12 @@ def apply_descriptors(individual, image_features):
 
 
 class ScoreCalculator:
-    def __init__(self, cross_validation_strategy, scoring, classifiers, image_loader):
+    def __init__(self, cross_validation_strategy, scoring, classifiers, image_loader, logger):
         self.cross_validation_strategy = cross_validation_strategy
         self.scoring = scoring
         self.classifiers = classifiers
         self.image_loader = image_loader
+        self.logger = logger
 
     def __get_score(self, x, y):
         scores = np.array([])
@@ -99,8 +101,13 @@ class ScoreCalculator:
             y.append(cls)
 
         if np.shape(x)[1] != 0:
-            individual.score = self.__get_score(np.array(x), np.array(y))
-            individual.image_table = np.append(np.array(x),(np.array(y).reshape(-1, 1)),axis=1)
+            individual.image_table = np.append(np.array(x), (np.array(y).reshape(-1, 1)), axis=1)
+            try:
+                individual.score = self.__get_score(np.array(x), np.array(y))
+            except:
+                logging.error("Erro em __get_score", individual.genome)
+                self.logger.write_error_gene(individual)
+                individual.score = 0
         else:
             individual.score = 0
 

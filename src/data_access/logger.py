@@ -1,4 +1,6 @@
 import os
+import random
+
 from matplotlib import pyplot as plt
 import numpy as np
 import pandas as pd
@@ -41,6 +43,18 @@ class Logger:
             file.write(f'{best_individual.genome}: {best_individual.score}\n')
         dataframe = pd.DataFrame(best_individual.image_table)
         dataframe.to_csv(f'results/{self.title}/features/generation_{generation+1}.csv', index=False, header=False)
+
+
+    def write_error_gene(self, individual):
+        uuid = random.randint(1000000,99999999)
+
+        if not os.path.exists(f'./error'):
+            os.makedirs(f'./error')
+
+        with open(f'error/error_gene_{uuid}.txt', "a") as file:
+            file.write(f'{individual.genome}: {individual.score}\n')
+        dataframe = pd.DataFrame(individual.image_table)
+        dataframe.to_csv(f'error/error_features_{uuid}.csv', index=False, header=False, na_rep="NULL")
 
     def __print_generation_info(self, generation: int, best_individual, worst_individual):
         print(f'''

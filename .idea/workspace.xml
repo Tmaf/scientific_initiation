@@ -4,31 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa158bc8-66d0-41fb-955f-66e49f5b3009" name="Default Changelist" comment="adjust max value">
-      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+    <list default="true" id="fa158bc8-66d0-41fb-955f-66e49f5b3009" name="Default Changelist" comment="code refactor and add dockerfile">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/csv-editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/csv-editor.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/csv-editor.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/analitics/confusion_matrix.py" beforeDir="false" afterPath="$PROJECT_DIR$/analitics/confusion_matrix.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/analitics/features_analise.py" beforeDir="false" afterPath="$PROJECT_DIR$/analitics/features_analise.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_access/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_access/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_access/image_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_access/image_loader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_access/logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_access/logger.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/features_extraction/Energy.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/features_extraction/Energy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/features_extraction/HOG.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/features_extraction/HOG.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/features_extraction/ICA.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/features_extraction/ICA.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/features_extraction/LBP.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/features_extraction/LBP.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/features_extraction/Wavelet.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/features_extraction/Wavelet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/features_extraction/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/features_extraction/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/pre_processors/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/pre_processors/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/pre_processors/difference_of_gaussians.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/pre_processors/difference_of_gaussians.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/pre_processors/histogram_equalization.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/pre_processors/histogram_equalization.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/pre_processors/image_component.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/pre_processors/image_component.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/individual.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/individual.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jaya.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/jaya.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/score_calculator.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/score_calculator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/analitics/translate_gene.py" beforeDir="false" afterPath="$PROJECT_DIR$/analitics/translate_gene.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data_access/logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_access/logger.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/score_calculator.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/score_calculator.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,9 +65,9 @@
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="1rfD8xgunPFDagw4BwyazFygbMR" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -106,14 +93,14 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\tmaf\PycharmProjects\scientific_initiation\results" />
       <recent name="C:\Users\tmaf\PycharmProjects\scientific_initiation\src" />
       <recent name="C:\Users\tmaf\PycharmProjects\scientific_initiation\results\FL_CLL_RANDOM_FOREST" />
       <recent name="C:\Users\tmaf\PycharmProjects\scientific_initiation\results\FL_CLL_ADA_BOOST\features" />
       <recent name="C:\Users\tmaf\PycharmProjects\scientific_initiation\results\FL_CLL_ADA_BOOST" />
-      <recent name="C:\Users\tmaf\PycharmProjects\scientific_initiation\features\pre_processors" />
     </key>
   </component>
-  <component name="RunManager" selected="Docker.Dockerfile">
+  <component name="RunManager" selected="Python.translate_gene">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="genetic" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -136,39 +123,17 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="main (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="translate_gene" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="genetic" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/analitics" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="genetic" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="C:\Users\tmaf\PycharmProjects\scientific_initiation\src\main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/analitics/translate_gene.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -186,14 +151,19 @@
       <method v="2" />
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
-      <deployment type="dockerfile" />
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Docker.Dockerfile" />
+      <item itemvalue="Python.translate_gene" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.translate_gene" />
         <item itemvalue="Docker.Dockerfile" />
-        <item itemvalue="Python.main (1)" />
-        <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
   </component>
@@ -240,7 +210,8 @@
       <workItem from="1686658163446" duration="3091000" />
       <workItem from="1687213124205" duration="5632000" />
       <workItem from="1687702381202" duration="18830000" />
-      <workItem from="1696172305654" duration="5436000" />
+      <workItem from="1696172305654" duration="8067000" />
+      <workItem from="1696194165586" duration="6304000" />
     </task>
     <task id="LOCAL-00001" summary="code adjusts">
       <created>1666477532271</created>
@@ -389,7 +360,15 @@
       <option name="project" value="LOCAL" />
       <updated>1687786030749</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="code refactor and add dockerfile">
+      <option name="closed" value="true" />
+      <created>1696184609632</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1696184609632</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -433,7 +412,8 @@
     <MESSAGE value="added descriptor function" />
     <MESSAGE value="score calculator add table" />
     <MESSAGE value="add helpers" />
-    <option name="LAST_COMMIT_MESSAGE" value="add helpers" />
+    <MESSAGE value="code refactor and add dockerfile" />
+    <option name="LAST_COMMIT_MESSAGE" value="code refactor and add dockerfile" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/scientific_initiation$main.coverage" NAME="main Coverage Results" MODIFIED="1687961517792" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

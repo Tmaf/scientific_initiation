@@ -3,7 +3,6 @@ from score_calculator import ScoreCalculator
 from data_access import Logger, ImageLoader
 import pathos.multiprocessing
 from sklearn.model_selection import StratifiedKFold
-
 from sklearn.ensemble import AdaBoostClassifier
 
 # from sklearn.neighbors import KNeighborsClassifier
@@ -15,18 +14,18 @@ from sklearn.ensemble import AdaBoostClassifier
 
 
 if __name__ == '__main__':
-    PROCESS_NUMBERS = 4
-    POPULATION_SIZE = 20
-    NUMBER_OF_GENERATIONS = 10
-    NUMBER_OF_IMAGES = 30
+    PROCESS_NUMBERS = 2
+    POPULATION_SIZE = 30
+    NUMBER_OF_GENERATIONS = 100
+    NUMBER_OF_IMAGES = 20
     PLOT_NAME = "CLL_MCL_ADA_BOOST_2"
     SEED_K_FOLD = 123456
-    K_SPLITS = 10
+    K_SPLITS = 3
     SCORING = 'roc_auc'  # 'accuracy'
     DATABASES = [
        # "data/FL",
-        "../data/CLL",
-        "../data/MCL"
+        "./data/CLL",
+        "./data/MCL"
     ]
     CLASSIFIERS = {
         # "Nearest Neighbors": lambda:  KNeighborsClassifier(5),
@@ -35,7 +34,7 @@ if __name__ == '__main__':
         # "RBF SVM": lambda: SVC(kernel="rbf", C=0.025, random_state=SEED_K_FOLD),
         # "Gaussian Process": lambda:  GaussianProcessClassifier(1.0 * RBF(1.0), random_state=SEED_K_FOLD),
         # "Decision Tree": lambda: DecisionTreeClassifier(random_state=SEED_K_FOLD),
-        # "Random Forest": lambda: RandomForestClassifier(random_state=SEED_K_FOLD),
+        #"Random Forest": lambda: RandomForestClassifier(random_state=SEED_K_FOLD),
         # "Neural Net": lambda: MLPClassifier(alpha=1, random_state=SEED_K_FOLD),
         "AdaBoost": lambda: AdaBoostClassifier(random_state=SEED_K_FOLD),
     }
@@ -52,7 +51,8 @@ if __name__ == '__main__':
     scoreCalculator = ScoreCalculator(image_loader=image_loader,
                                       cross_validation_strategy=stratified_k_fold,
                                       scoring=SCORING,
-                                      classifiers=CLASSIFIERS
+                                      classifiers=CLASSIFIERS,
+                                      logger=logger
                                       )
     jaya = Jaya(population_size=POPULATION_SIZE,
                 generations_number=NUMBER_OF_GENERATIONS,

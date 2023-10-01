@@ -1,6 +1,7 @@
 FROM python:3.10
 LABEL authors="Tarcísio M. Almeida"
 
+WORKDIR /ic-project
 
 ADD ./src ./src
 ADD ./data ./data
@@ -15,3 +16,4 @@ RUN pip install matplotlib
 RUN pip install pathos
 
 CMD ["python", "./src/main.py"]
+
